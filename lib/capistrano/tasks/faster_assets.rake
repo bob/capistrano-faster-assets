@@ -41,6 +41,9 @@ namespace :deploy do
 
               info("Skipping asset precompile, no asset diff found")
 
+	      # remove existing assets directory
+	      execute(:rm, '-r', release_path.join('public', fetch(:assets_prefix)))
+	      
               # copy over all of the assets from the last release
               execute(:cp, '-r', latest_release_path.join('public', fetch(:assets_prefix)), release_path.join('public', fetch(:assets_prefix)))
             rescue PrecompileRequired
